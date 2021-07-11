@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/pi-sensor-viewer/static/css/main.6f03b91d.chunk.css",
+    "main.js": "/pi-sensor-viewer/static/js/main.a0970d14.chunk.js",
+    "main.js.map": "/pi-sensor-viewer/static/js/main.a0970d14.chunk.js.map",
+    "runtime-main.js": "/pi-sensor-viewer/static/js/runtime-main.1ee46e99.js",
+    "runtime-main.js.map": "/pi-sensor-viewer/static/js/runtime-main.1ee46e99.js.map",
+    "static/js/2.92536acc.chunk.js": "/pi-sensor-viewer/static/js/2.92536acc.chunk.js",
+    "static/js/2.92536acc.chunk.js.map": "/pi-sensor-viewer/static/js/2.92536acc.chunk.js.map",
+    "index.html": "/pi-sensor-viewer/index.html",
+    "static/css/main.6f03b91d.chunk.css.map": "/pi-sensor-viewer/static/css/main.6f03b91d.chunk.css.map",
+    "static/js/2.92536acc.chunk.js.LICENSE.txt": "/pi-sensor-viewer/static/js/2.92536acc.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1ee46e99.js",
+    "static/js/2.92536acc.chunk.js",
+    "static/css/main.6f03b91d.chunk.css",
+    "static/js/main.a0970d14.chunk.js"
+  ]
+}
