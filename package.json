@@ -2,7 +2,7 @@
   "name": "pi-sensor-chart",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://techdude101.github.io/{repo-name}",
+  "homepage": "http://techdude101.github.io/pi-sensor-viewer",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
