@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import LineChart from "./LineChart";
+import LineChart from "./components/LineChart";
+import Card from "./components/Card";
 
 async function fetchData(url) {
   const response = await fetch(url, {
@@ -17,7 +18,7 @@ function getHumidityData(data) {
 }
 
 function App() {
-  const url = "https://pi-sensor-rest-api.herokuapp.com/api/lasthour";
+  const url = "https://pi-sensor-rest-api.herokuapp.com/api/lastday";
   
   const [data, setData] = useState([]);
   const [dataRetrieved, setDataRetrieved] = useState(false);
@@ -38,7 +39,7 @@ function App() {
 
   function formatDate(date, timezone) {
     let d = new Date(date);
-    let formattedDateTime = " " + d.toLocaleTimeString('en-GB', {timeZone: timezone});
+    let formattedDateTime = " " + d.toLocaleTimeString('en-GB', {timeZone: 'UTC'});
     return formattedDateTime;
 }
 
@@ -66,7 +67,18 @@ function App() {
             return <h1>{data.message}</h1>
           } else {
             return <>
-            <LineChart label="Temperature (℃)" xData={getDateData(data)} yData={getTemperatureData(data)} title={data[0].description} />
+            <Card 
+              dateTime={data[data.length - 1].date} 
+              temperature={data[data.length - 1].temperature}
+              humidity = {data[data.length - 1].humidity}
+            />
+            <LineChart 
+            labelLeft="Temperature (℃)" 
+            labelRight="Humidity (%)" 
+            xData={getDateData(data)} 
+            yDataLeft={getTemperatureData(data)} 
+            yDataRight={getHumidityData(data)}
+            title={data[0].description} />
             {/* <LineChart label="Humidity (%)" xData={getDateData(data)} yData={getHumidityData(data)} title={data[0].description} /> */}
             </>
           }

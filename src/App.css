@@ -6,6 +6,7 @@
   background-color: #292D32;
   color: #38707D;
   min-height: 100vh;
+  font-family: monospace;
 }
 
 .charts-container {
@@ -31,11 +32,11 @@
 }
  
 @media all and (min-width: 480px) and (max-width: 768px) { 
-  .charts-container { width: 90%; }
+  .charts-container { width: 90%; margin: 0; }
 }
  
 @media all and (max-width: 480px) { 
-  .charts-container { width: 90%; }
+  .charts-container { width: 90%; margin: 0; }
 }
  
 /*------------------------------------------
@@ -73,7 +74,10 @@
 /* Portrait */
 @media screen and (orientation:portrait) { /* Portrait styles here */ }
 /* Landscape */
-@media screen and (orientation:landscape) { /* Landscape styles here */ }
+@media screen and (orientation:landscape) { 
+  /* Landscape styles here */ 
+  .charts-container { max-width: 75%; margin-top: 0; }
+}
  
  
 /* CSS for iPhone, iPad, and Retina Displays */
