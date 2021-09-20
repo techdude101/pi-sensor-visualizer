@@ -32,7 +32,8 @@ function App() {
 
   function getDateData(data) {
     const dates = data.map((item) => {
-      return formatDate(item.date, item.timezone);
+      // return formatDate(item.date, item.timezone);
+      return item.date;
     });
     return dates;
   }

@@ -108,6 +108,11 @@ class LineChart extends React.Component {
             },
           ]}
           layout={{
+            margin: {
+              t: 10,
+              b: 80,
+              pad: 15
+            },
             responsive: "true",
             autosize: true,
             legend: {
@@ -118,9 +123,11 @@ class LineChart extends React.Component {
               x: 1,
             },
             xaxis: {
-              type: 'time'
+              title: { text: 'Date/Time' },
+              type: 'time',
+              tickformat: '%H:%m',
             },
-            yaxis: { title: 'Temperature (&deg;C)' },
+            yaxis: { title: 'Temperature (&deg;C)', automargin: true },
             yaxis2: {
               title: 'Humidity (%)', 
               titlefont: { color: 'rgb(148, 103, 189)' },
@@ -128,6 +135,7 @@ class LineChart extends React.Component {
               range: [0, 100],
               overlaying: 'y',
               side: 'right',
+              automargin: true,
             }
           }}
         />
