@@ -79,7 +79,6 @@ function App() {
             yDataLeft={getTemperatureData(data)} 
             yDataRight={getHumidityData(data)}
             title={data[0].description} />
-            {/* <LineChart label="Humidity (%)" xData={getDateData(data)} yData={getHumidityData(data)} title={data[0].description} /> */}
             </>
           }
         })()}
