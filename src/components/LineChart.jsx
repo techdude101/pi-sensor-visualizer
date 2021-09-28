@@ -96,7 +96,7 @@ class LineChart extends React.Component {
               y: this.props.yDataLeft,
               name: "Temperature",
               mode: 'lines',
-              hovertemplate: ' %{y:.1f}&deg;C<br />%{x}',
+              hovertemplate: ' %{y:.1f}&deg;C',
             },
             {
               x: this.props.xData,
@@ -104,14 +104,16 @@ class LineChart extends React.Component {
               yaxis: "y2",
               name: "Humidity",
               mode: 'lines',
-              hovertemplate: ' %{y:.0f}%<br />%{x}',
+              hovertemplate: ' %{y:.0f}%',
             },
           ]}
           layout={{
             margin: {
-              t: 10,
-              b: 80,
-              pad: 15
+              t: 90,
+              b: 90,
+              l: 70,
+              r: 70,
+              pad: 10
             },
             responsive: "true",
             autosize: true,
@@ -124,19 +126,52 @@ class LineChart extends React.Component {
             },
             xaxis: {
               title: { text: 'Date/Time' },
-              type: 'time',
-              tickformat: '%H:%m',
+              autorange: "false",
+              type: 'date',
+            //   tickformatstops: [
+            //   {
+            //     // 0 - 1 Minute
+            //     "dtickrange": [null, 60 * 1000],
+            //     "value": "%H:%M:%S s"
+            //   },
+            //   {
+            //     // 1 Minute - 1 Hour
+            //     "dtickrange": [60 * 1000, 60 * 60 * 1000],
+            //     "value": "%H:%M:%S"
+            //   },
+            //   {
+            //     // 1 Hour - 1 Day
+            //     "dtickrange": [60 * 60 * 1000, 23 * 60 * 60 * 1000],
+            //     "value": "%H:%M"
+            //   },
+            //   {
+            //     // 1 Day - 1 Week
+            //     "dtickrange": [24 * 60 * 60 * 1000, 7 * 24 * 60 * 60 * 1000],
+            //     "value": "%d-%m-%Y"
+            //   },
+            //   {
+            //     "dtickrange": [604800000, "M1"],
+            //     "value": "%e. %b w"
+            //   },
+            //   {
+            //     "dtickrange": ["M1", "M12"],
+            //     "value": "%b '%y M"
+            //   },
+            //   {
+            //     "dtickrange": ["M12", null],
+            //     "value": "%Y Y"
+            //   }
+            // ]
             },
             yaxis: { title: 'Temperature (&deg;C)', automargin: true },
             yaxis2: {
               title: 'Humidity (%)', 
-              titlefont: { color: 'rgb(148, 103, 189)' },
-              tickfont: { color: 'rgb(148, 103, 189)' },
               range: [0, 100],
               overlaying: 'y',
               side: 'right',
               automargin: true,
-            }
+            },
+            hovermode: "x unified",
           }}
         />
       </div>
