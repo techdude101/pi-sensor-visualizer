@@ -16,6 +16,21 @@
   padding: 1em;
 }
 
+.date-control {
+  text-align: center;
+  margin: 0 auto;
+  width: 30%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.date-control input {
+  padding: 0.5em;
+  width: 22ch;
+  text-align: center;
+}
+
 /*------------------------------------------
   Responsive Grid Media Queries - 1280, 1024, 768, 480
    1280-1024   - desktop (default grid)

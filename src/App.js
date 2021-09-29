@@ -3,6 +3,9 @@ import "./App.css";
 import LineChart from "./components/LineChart";
 import Card from "./components/Card";
 
+import "flatpickr/dist/themes/material_green.css";
+import Flatpickr from "react-flatpickr";
+
 async function fetchData(url) {
   const response = await fetch(url, {
     mode: "cors"
@@ -13,19 +16,22 @@ async function fetchData(url) {
 function App() {
   // const url = "https://pi-sensor-rest-api.herokuapp.com/api/lastday";
   // const url = "https://pi-sensor-rest-api.herokuapp.com/api/range?start=2021-09-21&end=2021-09-28";
-  let startDate = new Date();
-  let endDate = new Date();
+  // let startDate = new Date();
+  // let endDate = new Date();
   
-  endDate.setDate(endDate.getDate() + 1);
-  startDate.setDate(startDate.getDate() - 1);
+  // endDate.setDate(endDate.getDate() + 1);
+  // startDate.setDate(startDate.getDate() - 1);
 
-  const end = formatDate(endDate);
-  const start = formatDate(startDate);
+  // const end = formatDate(endDate);
+  // const start = formatDate(startDate);
 
-  const url = `https://pi-sensor-rest-api.herokuapp.com/api/range?start=${start}&end=${end}`;
+  // const url = `https://pi-sensor-rest-api.herokuapp.com/api/range?start=${start}&end=${end}`;
   
   const [data, setData] = useState([]);
   const [dataRetrieved, setDataRetrieved] = useState(false);
+  const [startDate, setStartDate] = useState(new Date().setDate(new Date().getDate() - 1));
+  const [endDate, setEndDate] = useState(new Date().setDate(new Date().getDate() + 1));
+  const [url, setUrl] = useState(`https://pi-sensor-rest-api.herokuapp.com/api/range?start=${formatDate(startDate)}&end=${formatDate(endDate)}`)
 
   function getHumidityData(data) {
     const humidity = data.map((item) => {
@@ -63,8 +69,22 @@ function App() {
     return [year, month, day].join('-');
 }
 
-  useEffect(() => {
-    fetchData(url)
+function datePickerClose(selectedDates, str, instance) {
+  let newEndDate = selectedDates[0];
+  let newStartDate = selectedDates[0];
+  
+  if (selectedDates.length === 2) {
+    newEndDate = selectedDates[1];
+  }
+  
+  console.log(`Start: ${newStartDate}, End: ${newEndDate}`);
+  setStartDate(newStartDate);
+  setEndDate(newEndDate);
+  setUrl(`https://pi-sensor-rest-api.herokuapp.com/api/range?start=${formatDate(newStartDate)}&end=${formatDate(newEndDate)}`);
+}
+function updateData() {
+  setDataRetrieved(false);
+  fetchData(url)
     .then(res => res.json())
     .then((result) => {
       setData(result);
@@ -75,11 +95,24 @@ function App() {
       setData({message: "Error retrieving data"});
       setDataRetrieved(true);
     })
-  }, [])
+}
+
+  useEffect(() => {
+    updateData();
+  }, [url])
 
   return (
     <div className="App">
+      
       <div className="charts-container">
+        <div className="date-control">
+          <h2>Date</h2>
+      <Flatpickr
+        value={[startDate, endDate]}
+        options={{ maxDate: new Date().setDate(new Date().getDate() + 1), mode: "range"}}
+        onClose={datePickerClose}
+      />
+      </div>
         {(function() {
           if (dataRetrieved === false) {
             return <h1>Loading...</h1>
