@@ -8,30 +8,26 @@ import Flatpickr from "react-flatpickr";
 
 async function fetchData(url) {
   const response = await fetch(url, {
-    mode: "cors"
+    mode: "cors",
   });
   return response;
 }
 
 function App() {
-  // const url = "https://pi-sensor-rest-api.herokuapp.com/api/lastday";
-  // const url = "https://pi-sensor-rest-api.herokuapp.com/api/range?start=2021-09-21&end=2021-09-28";
-  // let startDate = new Date();
-  // let endDate = new Date();
-  
-  // endDate.setDate(endDate.getDate() + 1);
-  // startDate.setDate(startDate.getDate() - 1);
-
-  // const end = formatDate(endDate);
-  // const start = formatDate(startDate);
-
-  // const url = `https://pi-sensor-rest-api.herokuapp.com/api/range?start=${start}&end=${end}`;
-  
   const [data, setData] = useState([]);
   const [dataRetrieved, setDataRetrieved] = useState(false);
-  const [startDate, setStartDate] = useState(new Date().setDate(new Date().getDate() - 1));
-  const [endDate, setEndDate] = useState(new Date().setDate(new Date().getDate() + 1));
-  const [url, setUrl] = useState(`https://pi-sensor-rest-api.herokuapp.com/api/range?start=${formatDate(startDate)}&end=${formatDate(endDate)}`)
+  const [startDate, setStartDate] = useState(
+    new Date().setDate(new Date().getDate() - 1)
+  );
+  const [endDate, setEndDate] = useState(
+    new Date().setDate(new Date().getDate() + 1)
+  );
+
+  const [url, setUrl] = useState(
+    `https://pi-sensor-rest-api.herokuapp.com/api/range?start=${formatDate(
+      startDate
+    )}&end=${formatDate(endDate)}`
+  );
 
   function getHumidityData(data) {
     const humidity = data.map((item) => {
@@ -57,82 +53,90 @@ function App() {
 
   function formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
 
-    return [year, month, day].join('-');
-}
-
-function datePickerClose(selectedDates, str, instance) {
-  let newEndDate = selectedDates[0];
-  let newStartDate = selectedDates[0];
-  
-  if (selectedDates.length === 2) {
-    newEndDate = selectedDates[1];
+    return [year, month, day].join("-");
   }
-  
-  console.log(`Start: ${newStartDate}, End: ${newEndDate}`);
-  setStartDate(newStartDate);
-  setEndDate(newEndDate);
-  setUrl(`https://pi-sensor-rest-api.herokuapp.com/api/range?start=${formatDate(newStartDate)}&end=${formatDate(newEndDate)}`);
-}
-function updateData() {
-  setDataRetrieved(false);
-  fetchData(url)
-    .then(res => res.json())
-    .then((result) => {
-      setData(result);
-      setDataRetrieved(true);
-    })
-    .catch((err) => {
-      console.error(err);
-      setData({message: "Error retrieving data"});
-      setDataRetrieved(true);
-    })
-}
+
+  function datePickerClose(selectedDates, str, instance) {
+    let newEndDate = selectedDates[0];
+    let newStartDate = selectedDates[0];
+
+    if (selectedDates.length === 2) {
+      newEndDate = selectedDates[1];
+    }
+
+    console.log(`Start: ${newStartDate}, End: ${newEndDate}`);
+    setStartDate(newStartDate);
+    setEndDate(newEndDate);
+    setUrl(
+      `https://pi-sensor-rest-api.herokuapp.com/api/range?start=${formatDate(
+        newStartDate
+      )}&end=${formatDate(newEndDate)}`
+    );
+  }
+  function updateData() {
+    setDataRetrieved(false);
+    fetchData(url)
+      .then((res) => res.json())
+      .then((result) => {
+        setData(result);
+        setDataRetrieved(true);
+      })
+      .catch((err) => {
+        console.error(err);
+        setData({ message: "Error retrieving data" });
+        setDataRetrieved(true);
+      });
+  }
 
   useEffect(() => {
     updateData();
-  }, [url])
+  }, [url]);
 
   return (
     <div className="App">
-      
-      <div className="charts-container">
-        <div className="date-control">
-          <h2>Date</h2>
-      <Flatpickr
-        value={[startDate, endDate]}
-        options={{ maxDate: new Date().setDate(new Date().getDate() + 1), mode: "range"}}
-        onClose={datePickerClose}
-      />
-      </div>
-        {(function() {
+      <div className="app-container">
+        {(function () {
           if (dataRetrieved === false) {
-            return <h1>Loading...</h1>
+            return <h1>Loading...</h1>;
           } else if (data.message) {
-            return <h1>{data.message}</h1>
+            return <h1>{data.message}</h1>;
           } else {
-            return <>
-            <Card 
-              dateTime={data[data.length - 1].date} 
-              temperature={data[data.length - 1].temperature}
-              humidity = {data[data.length - 1].humidity}
-            />
-            <LineChart 
-            labelLeft="Temperature (℃)" 
-            labelRight="Humidity (%)" 
-            xData={getDateData(data)} 
-            yDataLeft={getTemperatureData(data)} 
-            yDataRight={getHumidityData(data)}
-            title={data[0].description} />
-            </>
+            return (
+              <div className="charts-container">
+                <h1>{data[0].description}</h1>
+                <Card
+                  dateTime={data[data.length - 1].date}
+                  temperature={data[data.length - 1].temperature}
+                  humidity={data[data.length - 1].humidity}
+                />
+                <LineChart
+                  labelLeft="Temperature (℃)"
+                  labelRight="Humidity (%)"
+                  xData={getDateData(data)}
+                  yDataLeft={getTemperatureData(data)}
+                  yDataRight={getHumidityData(data)}
+                  title={" "}
+                />
+                <div className="date-control">
+                  <h2>Date</h2>
+                  <Flatpickr
+                    value={[startDate, endDate]}
+                    options={{
+                      maxDate: new Date().setDate(new Date().getDate() + 1),
+                      mode: "range",
+                    }}
+                    onClose={datePickerClose}
+                  />
+                </div>
+              </div>
+            );
           }
         })()}
       </div>

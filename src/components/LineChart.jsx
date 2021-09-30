@@ -115,7 +115,6 @@ class LineChart extends React.Component {
               r: 70,
               pad: 10
             },
-            responsive: "true",
             autosize: true,
             legend: {
               orientation: "h",
@@ -128,40 +127,6 @@ class LineChart extends React.Component {
               title: { text: 'Date/Time' },
               autorange: "false",
               type: 'date',
-            //   tickformatstops: [
-            //   {
-            //     // 0 - 1 Minute
-            //     "dtickrange": [null, 60 * 1000],
-            //     "value": "%H:%M:%S s"
-            //   },
-            //   {
-            //     // 1 Minute - 1 Hour
-            //     "dtickrange": [60 * 1000, 60 * 60 * 1000],
-            //     "value": "%H:%M:%S"
-            //   },
-            //   {
-            //     // 1 Hour - 1 Day
-            //     "dtickrange": [60 * 60 * 1000, 23 * 60 * 60 * 1000],
-            //     "value": "%H:%M"
-            //   },
-            //   {
-            //     // 1 Day - 1 Week
-            //     "dtickrange": [24 * 60 * 60 * 1000, 7 * 24 * 60 * 60 * 1000],
-            //     "value": "%d-%m-%Y"
-            //   },
-            //   {
-            //     "dtickrange": [604800000, "M1"],
-            //     "value": "%e. %b w"
-            //   },
-            //   {
-            //     "dtickrange": ["M1", "M12"],
-            //     "value": "%b '%y M"
-            //   },
-            //   {
-            //     "dtickrange": ["M12", null],
-            //     "value": "%Y Y"
-            //   }
-            // ]
             },
             yaxis: { title: 'Temperature (&deg;C)', automargin: true },
             yaxis2: {
@@ -173,6 +138,8 @@ class LineChart extends React.Component {
             },
             hovermode: "x unified",
           }}
+          useResizeHandler={true}
+          style={{width: "100%", height: "100%"}}
         />
       </div>
     )

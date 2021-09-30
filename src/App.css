@@ -1,17 +1,38 @@
+:root {
+  --bg-color-primary: rgb(12, 11, 16);
+  --bg-color-secondary: rgb(49, 49, 57);
+  --text-color-primary: rgb(250, 250, 250);
+  --margin-top-bottom: 5px;
+}
+
 .App {
   text-align: center;
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  background-color: #292D32;
-  color: #38707D;
+  align-items: flex-start;
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
   min-height: 100vh;
   font-family: monospace;
 }
 
+.app-container {
+  margin-top: var(--margin-top-bottom);
+  margin-bottom: var(--margin-top-bottom);
+  height: 100%;
+  width: 100%;
+  background-color: var(--bg-color-primary);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .charts-container {
-  width: 50%;
-  background-color:  rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  width: 60%;
+  background-color: var(--bg-color-secondary);
   margin: 2em;
   padding: 1em;
 }
@@ -19,16 +40,24 @@
 .date-control {
   text-align: center;
   margin: 0 auto;
-  width: 30%;
+  width: 50ch;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  background-color: var(--bg-color-primary);
+  margin-top: 1em;
+  border-radius: 20px;
+}
+
+.date-control > * {
+  padding: 0.5em 2em 0.5em 2em;
 }
 
 .date-control input {
   padding: 0.5em;
   width: 22ch;
   text-align: center;
+  border-radius: 10px;
 }
 
 /*------------------------------------------
@@ -39,19 +68,23 @@
    480-less    - phone landscape & smaller
 --------------------------------------------*/
 @media all and (min-width: 1024px) and (max-width: 1280px) {
-  .charts-container { width: 80%; }
+  .app-container { width: 100%; }
+  .charts-container { width: 100%; }
  }
  
 @media all and (min-width: 768px) and (max-width: 1024px) { 
-  .charts-container { width: 80%; }
+  .app-container { width: 100%; }
+  .charts-container { width: 100%; }
 }
  
 @media all and (min-width: 480px) and (max-width: 768px) { 
-  .charts-container { width: 90%; margin: 0; }
+  .app-container { width: 100%; margin: 0; }
+  .charts-container { width: 100%; margin: 0; }
 }
  
 @media all and (max-width: 480px) { 
-  .charts-container { width: 90%; margin: 0; }
+  .app-container { width: 100%; margin: 0; }
+  .charts-container { width: 100%; margin: 0; }
 }
  
 /*------------------------------------------
@@ -91,7 +124,7 @@
 /* Landscape */
 @media screen and (orientation:landscape) { 
   /* Landscape styles here */ 
-  .charts-container { max-width: 75%; margin-top: 0; }
+  .charts-container { max-width: 100%; margin-top: 0; }
 }
  
  
