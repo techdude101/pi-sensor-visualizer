@@ -15,6 +15,11 @@ async function fetchData(url) {
 
 function App() {
   const [data, setData] = useState([]);
+  const [dataMinMax, setDataMinMax] = useState(
+    { 
+      temperature: { min: 0, max : 0 },
+      humidity: { min: 0, max : 0 }
+   });
   const [dataRetrieved, setDataRetrieved] = useState(false);
   const [startDate, setStartDate] = useState(
     new Date().setDate(new Date().getDate() - 1)
@@ -63,6 +68,26 @@ function App() {
     return [year, month, day].join("-");
   }
 
+  function getMaximumValue(data) {
+    let max = -Infinity;
+    data.forEach(element => {
+      if (element > max) {
+        max = element;
+      }
+    });
+    return max;
+  }
+
+  function getMinimumValue(data) {
+    let min = Infinity;
+    data.forEach(element => {
+      if (element < min) {
+        min = element;
+      }
+    });
+    return min;
+  }
+
   function datePickerClose(selectedDates, str, instance) {
     let newEndDate = selectedDates[0];
     let newStartDate = selectedDates[0];
@@ -71,7 +96,7 @@ function App() {
       newEndDate = selectedDates[1];
     }
 
-    console.log(`Start: ${newStartDate}, End: ${newEndDate}`);
+    // console.log(`Start: ${newStartDate}, End: ${newEndDate}`);
     setStartDate(newStartDate);
     setEndDate(newEndDate);
     setUrl(
@@ -87,6 +112,18 @@ function App() {
       .then((result) => {
         setData(result);
         setDataRetrieved(true);
+        
+        let temperatureData = getTemperatureData(result);
+        let min = getMinimumValue(temperatureData);
+        let max = getMaximumValue(temperatureData);
+
+        setDataMinMax({
+          ...dataMinMax, 
+          temperature: {
+            min: min,
+            max: max
+          }
+        })
       })
       .catch((err) => {
         console.error(err);
@@ -123,6 +160,7 @@ function App() {
                   yDataLeft={getTemperatureData(data)}
                   yDataRight={getHumidityData(data)}
                   title={" "}
+                  minMaxValues={dataMinMax}
                 />
                 <div className="date-control">
                   <h2>Date</h2>

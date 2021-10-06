@@ -115,6 +115,8 @@ class LineChart extends React.Component {
               r: 70,
               pad: 10
             },
+            // title: "Title",
+            title: `Min: ${this.props.minMaxValues.temperature.min}&deg;C Max: ${this.props.minMaxValues.temperature.max}&deg;C`,
             autosize: true,
             legend: {
               orientation: "h",
@@ -130,7 +132,7 @@ class LineChart extends React.Component {
             },
             yaxis: { title: 'Temperature (&deg;C)', automargin: true },
             yaxis2: {
-              title: 'Humidity (%)', 
+              title: 'Humidity (%)',
               range: [0, 100],
               overlaying: 'y',
               side: 'right',
@@ -139,7 +141,7 @@ class LineChart extends React.Component {
             hovermode: "x unified",
           }}
           useResizeHandler={true}
-          style={{width: "100%", height: "100%"}}
+          style={{ width: "100%", height: "100%" }}
         />
       </div>
     )
