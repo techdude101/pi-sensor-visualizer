@@ -31,7 +31,10 @@ function App() {
   const [url, setUrl] = useState(
     `https://pi-sensor-rest-api.herokuapp.com/api/range?start=${formatDate(
       startDate
-    )}&end=${formatDate(endDate)}`
+    )}&end=${formatDate(endDate)}&desc=Bedroom`
+    // `http://localhost:3000/api/range?start=${formatDate(
+    //   startDate
+    // )}&end=${formatDate(endDate)}&desc=Bedroom`
   );
 
   function getHumidityData(data) {
